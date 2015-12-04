@@ -240,7 +240,7 @@ fq$template
 
 From here you can see that it's incredibly simple to write a FASTQ extraction script:
 
-```
+```R
 # path to fast5 files
 f5dir <- "test"
 # get vector of all fast5 files
