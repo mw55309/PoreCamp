@@ -445,5 +445,19 @@ plot.cumulative.yield(fail)
 ## Extracting FASTQ from the command-line
 
 
+Command-line scripts for extracting FASTQ can be pulled from [github](https://github.com/mw55309/poRe_scripts).  For Nick's SQK-MAP-006 data we use the old_format scripts:
+
+```sh
+# 2D
+./poRe_scripts/old_format/extract2D MAP006-1/MAP006-1_downloads/pass/
+
+# template
+./poRe_scripts/old_format/extractTemplate MAP006-1/MAP006-1_downloads/pass/
+
+# complement
+./poRe_scripts/old_format/extractComplement MAP006-1/MAP006-1_downloads/pass/
+```
+
+For any newer data, we can use the scripts in new_format
 
 
