@@ -91,7 +91,7 @@ UniqueGlobalKey          Group
 We can compare this to a base-called file
 
 ```
-ls -r MAP006-1/MAP006-1_downloads/pass/LomanLabz_PC_Ecoli_K12_MG1655_20150924_MAP006_1_5005_1_ch150_file24_strand.fast5
+h5ls -r MAP006-1/MAP006-1_downloads/pass/LomanLabz_PC_Ecoli_K12_MG1655_20150924_MAP006_1_5005_1_ch150_file24_strand.fast5
 ```
 ```
 /                        Group
