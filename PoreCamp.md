@@ -424,6 +424,46 @@ m + geom_histogram(binwidth=500)
 
 ### occupancy
 
+The MinION flowcell is arranged into 512 channels in 4 blocks, and we can see the layout using poRe:
+
+```R
+show.layout()
+```
+
+We first need to calculate some statistics summarised by channel:
+
+```R
+# pass data
+pass.s <- summarise.by.channel(pass)
+head(pass.s)
+
+fail.s <- summarise.by.channel(fail)
+head(fail.s)
+```
+
+The rows of the result are the channel numbers, and the columns tell us how many channels appear in our summary data, and either the number (n) or sumulative length (l) of template, complement and 2d reads from each channel.
+
+We can plot these:
+
+```R
+# pass
+
+# the number of times the channel appears in any context
+plot.channel.summary(pass.s)
+
+# cumulative 2D length
+plot.channel.summary(pass.s, report.col="l2d")
+
+# fail
+
+# the number of times the channel appears in any context
+plot.channel.summary(fail.s)
+
+# cumulative 2D length
+plot.channel.summary(fail.s, report.col="l2d")
+
+```
+
 ### Extracting meta-data from fast5
 If you haven't run pore_rt(), then you can extract meta-data directly from the fast5 files.  This takes a long time as we have top open each fle and extract the attributes.  For demo purposes, we have selected 10% randomly of Nick's SQK-MAP-006 data in folder MAP006-1.10 
 
