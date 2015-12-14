@@ -375,6 +375,28 @@ head(pass)
 head(fail)
 ```
 
+### Longest high quality read
+
+We can find this from the metadata:
+
+```R
+# find the maximum length
+max(pass$len2d)
+
+# get the metadata for that read
+pass[pass$len2d==max(pass$len2d),]
+
+# We now know the longest read
+longest <- "MAP006-1/MAP006-1_downloads/pass//LomanLabz_PC_Ecoli_K12_MG1655_20150924_MAP006_1_5005_1_ch153_file57_strand.fast5"
+lfq <- get_fastq(longest, which="2D")
+lfa <- get_fasta(longest, which="2D")
+
+# write fastq and fasta out to files
+cat(lfq[["2D"]], file = "longest.fastq", sep = "\n", fill = FALSE)
+cat(lfa[["2D"]], file = "longest.fasta", sep = "\n", fill = FALSE)
+```
+
+
 ### Yield
 
 Yield over time can be plotted with plot.cumulative.yield
@@ -489,15 +511,47 @@ Command-line scripts for extracting FASTQ can be pulled from [github](https://gi
 
 ```sh
 # 2D
-./poRe_scripts/old_format/extract2D MAP006-1/MAP006-1_downloads/pass/
+./poRe_scripts/old_format/extract2D MAP006-1/MAP006-1_downloads/pass/ > MAP006-1.pass.2D.poRe.fastq
 
 # template
-./poRe_scripts/old_format/extractTemplate MAP006-1/MAP006-1_downloads/pass/
+./poRe_scripts/old_format/extractTemplate MAP006-1/MAP006-1_downloads/pass/ > MAP006-1.pass.template.poRe.fastq
 
 # complement
-./poRe_scripts/old_format/extractComplement MAP006-1/MAP006-1_downloads/pass/
+./poRe_scripts/old_format/extractComplement MAP006-1/MAP006-1_downloads/pass/ > MAP006-1.pass.complement.poRe.fastq
 ```
 
-For any newer data, we can use the scripts in new_format
+For any newer data, we can use the scripts in the "new_format" folder.
+
+FASTQ can be converted to FASTA using seqtk
+
+```sh
+seqtk seq -A MAP006-1.pass.2D.poRe.fastq > MAP006-1.pass.2D.poRe.fasta
+```
+
+## poretools
+
+Much of what we did above can also be achieved using poretools.  We have cheated slightly with poRe by extracting most of the metadata we need during the run and metrichor base-calling, which allows us to do things much more quickly.  However, below poretools is going to each fast5 file and ripping out the necessary information which takes a long time.  poRe also takes a long time when having to do this, which is why we chose to pre-extract the necessary meta-data.
+
+For FASTQ extraction, we find that poretools is quicker on pass data, but poRe is quicker on fail data - we're not sure why!
+
+```sh
+# extract 2D fastq
+poretools fastq --type 2D MAP006-1/MAP006-1_downloads/pass/ > MAP006-1.pass.2D.poretools.fastq
+
+# extract 2d fasta
+poretools fasta --type 2D MAP006-1/MAP006-1_downloads/pass/ > MAP006-1.pass.2D.poretools.fasta
+
+# read length histogram
+poretools hist MAP006-1/MAP006-1_downloads/pass/
+
+# yield plot
+poretools yield_plot MAP006-1/MAP006-1_downloads/pass/
+
+# occupancy plot
+poretools occupancy MAP006-1/MAP006-1_downloads/pass/
+
+# find the longest
+poretools winner MAP006-1/MAP006-1_downloads/pass/
+```
 
 
