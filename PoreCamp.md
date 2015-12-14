@@ -375,7 +375,7 @@ head(pass)
 head(fail)
 ```
 
-### yield
+### Yield
 
 Yield over time can be plotted with plot.cumulative.yield
 
@@ -398,7 +398,7 @@ barcode <- "no_barcode"
 plot.cumulative.yield(pass[pass$barcode==barcode,])
 ```
 
-### length histogram
+### Read length histogram
 
 We can see a histogram of read lengths
 
@@ -422,7 +422,7 @@ m <- ggplot(pass, aes(x=len2d))
 m + geom_histogram(binwidth=500)
 ```
 
-### occupancy
+### Channel and pore occupancy
 
 The MinION flowcell is arranged into 512 channels in 4 blocks, and we can see the layout using poRe:
 
