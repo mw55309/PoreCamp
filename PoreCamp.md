@@ -29,7 +29,7 @@ FAST5 v1.1
 * /Analyses/Basecall_**1D**_000/BaseCalled_template/
 * /Analyses/Basecall_**1D**_000/BaseCalled_complement/
 
-
+This means that 2D data is also present in the template and complement folder. 
 
 ## File handling
 
